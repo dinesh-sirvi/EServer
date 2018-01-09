@@ -16,7 +16,7 @@ app.use((req,res,next)=>{
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
     res.setHeader('Access-Control-Allow-Credentials', false);
     next();
-})
+});
 app.post('/job', (req,res)=>{
     var job = new Job({
         job_desc: req.body.job_desc,
@@ -36,6 +36,9 @@ app.get('/jobs', (req,res)=>{
         res.status(200).send(doc);
     },(error)=>{
         res.status(400).send("Some Error Occurred");    } );
+});
+app.get('/:id',(req,res)=>{
+    res.send(req.params);
 });
 
 app.listen(process.env.PORT, ()=>{

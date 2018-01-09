@@ -10,6 +10,13 @@ const {Job} = require('./models/jobs');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); 
 
+app.use((req,res,next)=>{
+    res.setHeader('Access-Control-Allow-Origin','*');
+    res.setHeader('Access-Control-Allow-Methods','GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    res.setHeader('Access-Control-Allow-Credentials', false);
+    next();
+})
 app.post('/job', (req,res)=>{
     var job = new Job({
         job_desc: req.body.job_desc,

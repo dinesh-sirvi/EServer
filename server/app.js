@@ -38,7 +38,12 @@ app.get('/jobs', (req,res)=>{
         res.status(400).send("Some Error Occurred");    } );
 });
 app.get('/:id',(req,res)=>{
-    res.send(req.params);
+    var id = req.params.id;
+    Job.findOne({_id: id}).then((doc)=>{
+        res.status(200).send(doc);
+    },(error)=>{
+        res.status(400).send({Status:400});
+    });
 });
 
 app.listen(process.env.PORT, ()=>{
